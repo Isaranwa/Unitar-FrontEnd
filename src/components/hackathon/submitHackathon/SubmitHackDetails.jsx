@@ -1,15 +1,55 @@
-import React, { useRef } from "react";
-import HackProjectLinks from "./HackProjectLinks";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { TextField } from "@mui/material";
-import UserProfile from "../../common/UserProfile";
-
+import UserProfile from "../../participants/profile/UserProfile";
+import { submitHackathonResponse } from "../../../api/hackathons/hackathons";
+import { selectCurrentSubscriptionDetail } from "../../../features/subscription/subscriptionSlice";
+import SubmitModal from "./SubmitModal";
 const SubmitHackDetails = () => {
-  const fileInputRef = useRef(null);
-  const handleChooseFile = () => {
-    fileInputRef.current.click();
+  const [isSubmitModalOpen, setSubmitModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    desc: "",
+    image: "",
+    gh_link: "",
+    demo_link: "",
+    live_url: "",
+    blog: "",
+  });
+  const subscription = useSelector(selectCurrentSubscriptionDetail);
+
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submitHackathonResponse(subscription.id, formData).then((res) => {
+      if (res.status === 200) {
+        setSubmitModalOpen(true);
+        setTimeout(() => {
+          setSubmitModalOpen(false);
+          navigate(-1);
+        }, 2000);
+      }
+    });
+  };
+  useEffect(() => {
+    setFormData(subscription);
+  }, []);
+
+  const handleModalClose = () => {
+    setSubmitModalOpen(false);
+  };
+
   return (
-    <div className="ml-60">
+    <div className="ml-[260px]">
       <div className="flex justify-between">
         <h1 className="mt-5 text-gray-600 font-bold  text-[24px]">
           Hackathons
@@ -34,59 +74,118 @@ const SubmitHackDetails = () => {
       <h3 className="text-sm font-semibold mb-3 text-[15px]">
         Submit a project
       </h3>
-      <form className="flex gap-[100px]">
-        <div className="flex flex-col ">
-          <label className="mt-5 mb-2 text-xs " name="projectName">
+      <form className="flex gap-[100px]" onSubmit={handleSubmit}>
+        <div className="flex flex-col">
+          <label className="mt-5 mb-2 text-xs" name="projectName">
             Project title
           </label>
           <input
             type="text"
-            className="w-[400px] px-3 py-2 border border-grey-600 rounded text-xs
-        focus:outline-none focus:border-custom-blue "
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            className="w-[400px] px-3 py-2 border border-gray-400 rounded text-xs
+              focus:outline-none focus:border-custom-blue "
             placeholder=""
-            required
           />
-          <span className="text-xs text-gray-400 mt-2">
-            Do not exceed 20 character writing the project name
+          <span className="text-xs text-gray-500 mt-2">
+            Do not exceed 20 characters writing the project name
           </span>
+
           <label className="mt-5 mb-2 text-xs" name="projectDescription">
             Project description
           </label>
           <TextField
             id="outlined-multiline-static"
+            name="desc"
+            value={formData.desc}
+            onChange={handleChange}
             label=""
             multiline
             rows={4}
             defaultValue=""
           />
+
           <label className="mt-5 mb-2 text-xs" name="projectImage">
-            Project image
+            Project image url
           </label>
-          <div
-            className="w-[500px]  px-3 py-2 border border-grey-600 rounded text-xs"
-            s
-          >
+
+          <input
+            type="text"
+            name="image"
+            value={formData.image}
+            onChange={handleChange}
+            className="w-[400px] px-3 py-2 border border-gray-400 rounded text-xs
+              focus:outline-none focus:border-custom-blue "
+            placeholder=""
+          />
+        </div>
+        <div className="flex-col flex">
+          <div className="flex flex-col">
+            <label className="mt-5 mb-2 text-xs">Project link</label>
             <input
+              type="text"
+              name="gh_link"
+              value={formData.gh_link}
+              onChange={handleChange}
+              className="w-[300px] px-3 py-2 border border-grey-600 rounded text-xs
+        focus:outline-none focus:border-custom-blue "
               placeholder=""
-              type="file"
-              ref={fileInputRef}
-              style={{ display: "none" }}
             />
+            <span className="text-gray-400 text-xs mt-2">Must be a URL</span>
+
+            <label className="mt-5 mb-2 text-xs">
+              Project Demo Presentation link
+            </label>
+            <input
+              type="text"
+              name="demo_link"
+              value={formData.demo_link}
+              onChange={handleChange}
+              className="w-[300px] px-3 py-2 border border-grey-600 rounded text-xs
+        focus:outline-none focus:border-custom-blue "
+              placeholder=""
+            />
+
+            <label className="mt-5 mb-2 text-xs">Project live link</label>
+            <input
+              type="text"
+              name="live_url"
+              value={formData.live_url}
+              onChange={handleChange}
+              className="w-[300px] px-3 py-2 border border-grey-600 rounded text-xs
+        focus:outline-none focus:border-custom-blue"
+              placeholder=""
+            />
+
+            <label className="mt-5 mb-2 text-xs">
+              Project Blog link(optional)
+            </label>
+            <input
+              type="text"
+              name="blog"
+              value={formData.blog}
+              onChange={handleChange}
+              className="w-[300px] px-3 py-2 border border-grey-600 rounded text-xs
+        focus:outline-none focus:border-custom-blue"
+              placeholder=""
+            />
+
             <div className="flex justify-end">
-              <label
-                htmlFor="fileInput"
-                className="bg-transparent w-[100px]  flex justify-center text-xs border border-gray-300 px-1 py-1 rounded-md cursor-pointer "
-                onClick={handleChooseFile}
+              <button
+                type="submit"
+                className="text-white mr-10 text-xs font-semibold bg-custom-blue  rounded-md p-2 w-[150px] mt-[20px]"
               >
-                Choose file
-              </label>
+                Submit project
+              </button>
             </div>
           </div>
         </div>
-        <div className="flex-col flex">
-          <HackProjectLinks />
-        </div>
       </form>
+      <SubmitModal
+        handleClose={handleModalClose}
+        openModal={isSubmitModalOpen}
+      />
     </div>
   );
 };

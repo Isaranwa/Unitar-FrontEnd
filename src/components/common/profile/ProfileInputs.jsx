@@ -11,12 +11,12 @@ const ProfileInputs = () => {
   };
 
   return (
-    <div className="flex flex-col text-gray-500">
+    <div className="flex flex-col text-gray-400">
       <form className="flex flex-col">
         <label className="mt-5 mb-2 text-sm">Username</label>
         <input
           type="text"
-          className="w-[300px] px-3 py-2 border border-grey-600 rounded text-xs
+          className="w-[300px] px-3 py-2 border border-gray-400 rounded text-xs
           focus:outline-none focus:border-custom-blue"
           placeholder="Amisi"
         />
@@ -25,7 +25,7 @@ const ProfileInputs = () => {
         </label>
         <input
           type="email"
-          className="w-[600px] px-3 py-2 border border-grey-600 rounded text-xs
+          className="w-[600px] px-3 py-2 border border-gray-400 rounded text-xs
           focus:outline-none focus:border-custom-blue"
           placeholder="amisicaves@gmail.com"
         />
@@ -45,7 +45,7 @@ const ProfileInputs = () => {
             </label>
             <input
               type="text"
-              className="w-[300px] px-3 py-2 border border-grey-600 rounded text-xs
+              className="w-[300px] px-3 py-2 border border-gray-400 rounded text-xs
               focus:outline-none focus:border-custom-blue"
               placeholder="Lagos,Nigeria"
             />
@@ -56,7 +56,7 @@ const ProfileInputs = () => {
             </label>
             <input
               type="text"
-              className="w-[280px] px-3 py-2 border border-grey-600 rounded text-xs
+              className="w-[280px] px-3 py-2 border border-gray-400 rounded text-xs
               focus:outline-none focus:border-custom-blue"
               placeholder="Yoruba 45"
             />
@@ -67,7 +67,7 @@ const ProfileInputs = () => {
         </label>
         <input
           type="password"
-          className="w-[600px] px-3 py-2 border border-grey-600 rounded text-xs
+          className="w-[600px] px-3 py-2 border border-gray-400 rounded text-xs
           focus:outline-none focus:border-custom-blue"
           placeholder="**********"
         />

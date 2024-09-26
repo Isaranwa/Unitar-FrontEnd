@@ -46,7 +46,12 @@ import proj from "./proj.svg";
 import over from "./over.svg";
 import teams from "./teams.svg";
 import overlay from "./overlay.svg";
+import views from "./views.svg";
+import hack from "./aspiring.jpeg";
+
 export {
+  hack,
+  views,
   overlay,
   proj,
   over,

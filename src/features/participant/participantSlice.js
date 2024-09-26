@@ -3,23 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 const participantSlice = createSlice({
   name: "participant",
   initialState: {
-    participants: [],
-    selectedParticipant: null,
-    loading: false,
-    error: null,
+    currentParticipantDetail: null,
+    participantCode: "b686ae99-ad9d-4b15-ba6a-53d7bdfac4ec",
   },
   reducers: {
-    addParticipant: (state, action) => {
-      const { participant } = action.payload;
-      state.participants.push(participant);
+    setCurrentParticipantDetail: (state, action) => {
+      const { currentParticipantDetail } = action.payload;
+      state.currentParticipantDetail = currentParticipantDetail;
     },
-    selectParticipant: (state, action) => {
-      state.selectedParticipant = action.payload;
+    setParticipantCode: (state, action) => {
+      const { participantCode } = action.payload;
+      state.participantCode = participantCode;
     },
   },
 });
-export const { addParticipant, selectParticipant } = participantSlice.actions;
-export const selectParticipants = (state) => state?.participant?.participants;
-export const selectSelectedParticipant = (state) =>
-  state?.participant?.selectParticipant;
+
+export const { setCurrentParticipantDetail, setParticipantCode } =
+  participantSlice.actions;
+export const selectCurrentParticipantDetail = (state) =>
+  state?.participant?.currentParticipantDetail;
+export const selectParticipantCode = (state) =>
+  state?.participant?.participantCode;
+
 export default participantSlice.reducer;

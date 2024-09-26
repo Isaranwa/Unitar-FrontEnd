@@ -1,8 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import UserProfile from "../../common/UserProfile";
+import UserProfile from "../../participants/profile/UserProfile";
 import OpenHackathon from "./OpenHackathon";
-import SubmittedHackathon from "./SubmittedHackathon";
 
 const HackathonDashboard = () => {
   return (
@@ -12,10 +11,6 @@ const HackathonDashboard = () => {
           <h1 className="text-gray-600 font-bold text-[24px]">Hackathons</h1>
           <UserProfile />
         </div>
-        <span className="text-xs text-gray-600 font-bold">
-          Hackathons Submitted
-        </span>
-        <SubmittedHackathon />
         <div className="mt-10">
           <h1 className="text-gray-600 font-semibold text-sm">
             Open Hackathons

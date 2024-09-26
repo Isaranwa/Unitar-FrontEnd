@@ -4,9 +4,9 @@ import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
 import userSlice from "../features/user/userSlice";
 import participantSlice from "../features/participant/participantSlice";
-import organizersSlice from "../features/organizers/organizersSlice";
 import hackathonSlice from "../features/hackathon/hackathonSlice";
-
+import organizerSlice from "../features/organizer/organizerSlice";
+import subscriptionSlice from "../features/subscription/subscriptionSlice";
 const persistConfig = {
   key: "root",
   storage,
@@ -16,8 +16,9 @@ const appReducer = combineReducers({
   // your apps' top-level reducers
   user: userSlice,
   participant: participantSlice,
-  organizer: organizersSlice,
+  organizer: organizerSlice,
   hackathon: hackathonSlice,
+  subscription: subscriptionSlice,
 });
 
 const rootReducer = (state, action) => {

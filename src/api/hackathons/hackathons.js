@@ -20,9 +20,10 @@ export const createHackathon = async (hackathonObject) => {
 
 // IV. Modify hackathon with media-Implemet on form with formData
 // V. Get hackathon Validation Code
-export const requestValidationCode = async (hackathon_code, user_email) => {
+// /hackathons/:user_ref/send-validation/:hackathon_id
+export const requestValidationCode = async (user_ref, hackathon_code, user_email) => {
   return await axiosApi.post(
-    `/hackathons/${hackathon_code}}/send-validation/`,
+    `/hackathons/${user_ref}/send-validation/${hackathon_code}`,
     {
       user_email,
     }
@@ -31,7 +32,7 @@ export const requestValidationCode = async (hackathon_code, user_email) => {
 // VI. Validate to activate Hackathon
 export const validateHackathon = async (hackathon_code, confirmation_code) => {
   return await axiosApi.patch(
-    `/hackathons/${hackathon_code}/send-validation/`,
+    `/hackathons/${hackathon_code}/validate/`,
     {
       confirmation_code,
     }
@@ -55,10 +56,10 @@ export const getHackathonDetails = async (hackathon_code) => {
   return await axiosApi.get(`"/hackathons/${hackathon_code}/`);
 };
 // XI. Enrol Participant to Hackathon
-export const enrolToHackathon = async (hackathon_code, participant_code) => {
+export const enrolToHackathon = async (hackathon_id, participant_id) => {
   return await axiosApi.post("/subscriptions/", {
-    hackathon_code,
-    participant_code,
+    hackathon_id,
+    participant_id,
   });
 };
 // XII. View all Hackathon Subscriptions
@@ -96,6 +97,21 @@ export const evaluateHackathon = async (subscription_code, grade) => {
   });
 };
 // XVIII. Delete A participant hackathon Entry
-export const deleterHackathon = async (subscription_code) => {
-  return await axiosApi.destroy(`/subscriptions/${subscription_code}`);
+export const deleteHackathonSubscription = async (subscription_code) => {
+  return await axiosApi.delete(`/subscriptions/${subscription_code}`);
+};
+
+// XVIX
+export const adminValidateHackathon = async (hackathon_id) => {
+  return await axiosApi.patch(`/admin/hackathon/${hackathon_id}/validate`);
+};
+
+// xx
+export const deleteHackathon = async (hackathon_id) => {
+  return await axiosApi.delete(`/hackathons/${hackathon_id}`);
+};
+
+// xxi
+export const deleteHackathonCategory = async (tag_id) => {
+  return await axiosApi.delete(`/tags/${tag_id}`);
 };

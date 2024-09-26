@@ -1,9 +1,31 @@
 import { Avatar } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import ProfileInputs from "./ProfileInputs";
 import UserProfile from "../UserProfile";
 
 const ProfileDetails = () => {
+  const [profilePic, setProfilePic] = useState("");
+
+  const handleUpdate = (newPic) => {
+    setProfilePic(newPic);
+  };
+
+  const handleDelete = () => {
+    setProfilePic(null); // Set to null or a default image path
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const newPic = reader.result;
+        handleUpdate(newPic);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <div className="bg-white p-8 right-side">
       <div className="overflow-y-auto  ml-60 flex  profile-details ">
@@ -20,12 +42,12 @@ const ProfileDetails = () => {
         </div>
         <div className="flex-2 flex-col flex">
           <div className="flex justify-end mt-0 user-profile">
-            <UserProfile />
+            <UserProfile profilePic={profilePic} />
           </div>
 
           <Avatar
-            alt="Remy Sharp"
-            src="/assets/avatar1.jpg"
+            alt="Profile pic"
+            src={profilePic}
             sx={{ width: "100px", height: "100px", marginTop: "50px" }}
           />
           <span className=" text-sm mt-5">Your photo</span>
@@ -33,8 +55,18 @@ const ProfileDetails = () => {
             This will be displayed on your profile
           </span>
           <div className="flex gap-5 mt-5">
-            <button className="text-red-600 text-xs">Delete</button>
-            <button className="text-xs text-custom-purple">Update</button>
+            <button className="text-red-600 text-xs" onClick={handleDelete}>
+              Delete
+            </button>
+            <label className="text-xs text-custom-purple">
+              Update
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+            </label>
           </div>
         </div>
       </div>

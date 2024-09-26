@@ -15,7 +15,7 @@ const Showcase = () => {
             <h4 className="text-[#12141D] text-center lg:text-left lg:text-4xl font-lexend-exa mb-11  font-semibold ">
               Showcase Your <br /> Skills
             </h4>
-            <p className="text-[#12141D] text-[18px] mt-3 lg:text-left lg:w-[440px] text-center">
+            <p className="text-[#12141D] mr-1 text-[18px] mt-3 lg:text-left lg:w-[440px] text-center">
               Make your mark in the tech and innovation landscape. Showcase your
               talents through innovative solutions, and grab the attention of
               potential employers and collaborators.
